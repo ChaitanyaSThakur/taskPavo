@@ -38,13 +38,7 @@ class File(Resource):
 
         
 
-    #def delete(self, name):
-     #   file = FileModel.find_by_name(name)
-      #  if file:
-       #     file.delete_from_db()
-        #    return {'message': 'file deleted.'}
-        #return {'message': 'file not found.'}, 404
-
+    
     def put(self, name):
         data = File.parser.parse_args()
 

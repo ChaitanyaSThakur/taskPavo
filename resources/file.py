@@ -46,9 +46,7 @@ class File(Resource):
 
         if file:
             file.name = data['name']
-        else:
-            item = FileModel(name, **data)
-
+        
         file.save_to_db()
 
 

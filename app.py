@@ -1,9 +1,10 @@
 from flask import Flask
 from flask_restful import Api
+from resources.user import ListFiles
 
 from db import db
-from resources.user import UserRegister
-from resources.file import File, FileList
+from resources.user import UserRegister,UserFile
+
 
 
 app = Flask(__name__)
@@ -16,8 +17,9 @@ def create_tables():
     db.create_all()
 
 api.add_resource(UserRegister, '/user') 
-api.add_resource(File, '/user/file/<string:name>')
-api.add_resource(FileList, '/user/files/')
+api.add_resource(UserFile, '/user/file/')
+# api.add_resource(FileList, '/user/files/')
+api.add_resource(ListFiles, '/user/files')
 
 if __name__ == '__main__':
     db.init_app(app)

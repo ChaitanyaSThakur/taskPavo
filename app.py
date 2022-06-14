@@ -3,7 +3,7 @@ from flask_restful import Api
 from resources.user import ListFiles
 
 from db import db
-from resources.user import UserRegister,UserFile
+from resources.user import UserRegister,UserFile,ReadFile
 
 
 
@@ -18,7 +18,7 @@ def create_tables():
 
 api.add_resource(UserRegister, '/user') 
 api.add_resource(UserFile, '/user/file/')
-# api.add_resource(FileList, '/user/files/')
+api.add_resource(ReadFile, '/user/file/read')
 api.add_resource(ListFiles, '/user/files')
 
 if __name__ == '__main__':

@@ -4,15 +4,12 @@ from db import db
 import os
 
 work_dir=os.getcwd() + '/users/'
+files= []
 
 class UserRegister(Resource):
 
     parser=reqparse.RequestParser()
-    parser.add_argument('uid',
-        type=int,
-        required=True,
-        help="This field cannot be blank"
-    )
+    
     parser.add_argument('username',
         type=str,
         required=True,
@@ -97,7 +94,7 @@ class UserFile(Resource):
 
         
         
-        db.session.query(UserModel).filter(UserModel.uid==data['uid']).update({
+        db.session.query(UserModel).filter(UserModel.username==data['username']).update({
             UserModel.filename : data['filename'], UserModel.content: data['content']
         })
 
@@ -108,6 +105,10 @@ class UserFile(Resource):
         os.chdir(user_folder)
         with open(data['filename'], mode="a") as file:
             file.write(data['content'])
+        print(os.listdir(user_folder))
+
+        file= {'username': data['username'], 'filename': data['filename']}
+        files.append(file)
         
 
 
@@ -128,7 +129,27 @@ class UserFile(Resource):
         #     return {"message": "An error occurred inserting the file."}, 500
 
 class ListFiles(Resource):    
-    def listfilesforuser(name):
-        pass
+    def post(self):
+        data = UserRegister.parser.parse_args()
+        user_folder = os.path.join(work_dir, data['username'])
+        # print(os.listdir(user_folder))
+        # return  os.listdir(user_folder)
 
+        # print("Files and directories in a specified path:")
+        # for filename in os.listdir(user_folder):
+        #         f = os.path.join(user_folder,filename)
+        #         if os.path.isfile(f):
+        #             print(f)
+        # directory_list = os.listdir(user_folder)
+        # print("Files and directories in  current working directory :") 
+        return{'message': "files in directory {}".format(os.listdir(user_folder))}
 
+class ReadFile(Resource):
+    def post(self):
+        data = UserRegister.parser.parse_args()
+        user_folder = os.path.join(work_dir, data['username'])
+        file_path = os.path.join(user_folder, data['filename'])
+        fd = os.open(file_path,os.O_RDWR)
+        # fd = os.read(file_path, int(n))
+        # content=os.
+        return{'file content': "{}".format(os.read(fd,400))}

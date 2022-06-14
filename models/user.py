@@ -13,8 +13,7 @@ class UserModel(db.Model):
     
     
 
-    def __init__(self, uid, username, folderpath, filename, content):
-        self.uid = uid
+    def __init__(self, username, folderpath, filename, content):
         self.username = username
         self.folderpath = folderpath
         self.filename = filename

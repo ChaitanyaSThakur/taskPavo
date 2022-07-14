@@ -3,8 +3,8 @@
   - name: copy deployment file
     copy:
       src: flask_deployment.yaml
-      dest: 
+      dest: /root/
   - name: delete previous kubernetes objects
-    command: kubectl delete -f flask_deployment.yaml
+    command: kubectl delete -f /root/flask_deployment.yaml
   - name: Create deployment
-    command: kubectl apply -f /flask_deployment.yaml
+    command: kubectl apply -f /root/flask_deployment.yaml

@@ -1,11 +1,6 @@
 - hosts: localhost
   gather_facts: no
   tasks:
-   - name: Create Folder /app if not exist
-     file:
-      path: /root
-      mode: 0755
-      state: directory
   - name: copy deployment file
     copy:
       src: flask_deployment.yaml

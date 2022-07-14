@@ -1,0 +1,10 @@
+- hosts: localhost
+  tasks:
+  - name: copy deployment file
+    copy:
+      src: flask_deployment.yaml
+      dest: /root/
+  - name: delete previous kubernetes objects
+    command: kubectl delete -f /root/flask_deployment.yaml
+  - name: Create deployment
+    command: kubectl apply -f /root/flask_deployment.yaml

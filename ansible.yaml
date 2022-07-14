@@ -5,7 +5,7 @@
     copy:
       src: flask_deployment.yaml
       dest: /ansible/
-  - name: delete previous kubernetes objects
-    command: kubectl delete -f /ansible/flask_deployment.yaml
+  #- name: delete previous kubernetes objects
+   # command: kubectl delete -f /ansible/flask_deployment.yaml
   - name: Create deployment
     command: kubectl apply -f /ansible/flask_deployment.yaml
